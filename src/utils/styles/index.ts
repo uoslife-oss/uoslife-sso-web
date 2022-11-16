@@ -4,16 +4,12 @@ import { normalize } from 'styled-normalize';
 import { colors } from '@/utils/styles/colors';
 import { typographies } from '@/utils/styles/typography';
 
-export const theme = { ...colors, ...typographies };
-
 export const GlobalStyle = createGlobalStyle`
   ${normalize};
   
   * {
     ${typographies.Body2};
-    margin-top: 0;
-    color: ${colors.Secondary1};
-    
+    color: ${colors.Secondary2};
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -54,3 +50,15 @@ export const GlobalStyle = createGlobalStyle`
     text-decoration: underline;
   }
 `;
+
+export interface Theme {
+  colors: typeof colors;
+  typographies: typeof typographies;
+}
+
+export const theme: Theme = { colors, typographies };
+
+declare module 'styled-components' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  export interface DefaultTheme extends Theme {}
+}

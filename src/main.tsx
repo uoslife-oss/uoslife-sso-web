@@ -6,7 +6,11 @@ import { ThemeProvider } from 'styled-components';
 import { router } from '@/router';
 import { GlobalStyle, theme } from '@/utils/styles';
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement,
+);
+
+root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <GlobalStyle />

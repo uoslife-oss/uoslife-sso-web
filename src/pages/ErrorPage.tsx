@@ -1,5 +1,15 @@
 import * as React from 'react';
 
-const ErrorPage: React.FC = () => <h6>404 Not Found</h6>;
+import BaseLayout from '@/components/layouts/BaseLayout';
+import Col from '@/components/utils/Col';
+
+const ErrorPage: React.FC = () => (
+  <BaseLayout>
+    <Col justify="center" align="center" fill>
+      <h4>Not Found</h4>
+      <h6>404</h6>
+    </Col>
+  </BaseLayout>
+);
 
 export default ErrorPage;
