@@ -9,6 +9,8 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
+    'plugin:import/typescript',
+    'plugin:import/recommended',
   ],
   'overrides': [],
   'parser': '@typescript-eslint/parser',
@@ -38,5 +40,29 @@ module.exports = {
       'always',
     ],
     'react/react-in-jsx-scope': 'off',
+    'import/order': [
+      'error',
+      {
+        groups: ['builtin', 'external', ['parent', 'sibling'], 'index'],
+        pathGroups: [
+          {
+            pattern: 'angular',
+            group: 'external',
+            position: 'before',
+          },
+        ],
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true,
+        },
+        'newlines-between': 'always',
+      },
+    ],
+  },
+  'settings': {
+    'import/parsers': { '@typescript-eslint/parser': ['.ts'] },
+    'import/resolver': {
+      typescript: {},
+    },
   },
 };
