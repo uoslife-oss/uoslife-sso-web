@@ -53,9 +53,7 @@ const RegisterPage: React.FC = () => {
         });
       }
 
-      return toast.error('입력 내용을 확인해주세요.', {
-        position: 'bottom-right',
-      });
+      return toast.error('입력 내용을 확인해주세요.');
     }
 
     alert(data.id);
