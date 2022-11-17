@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { ComponentPropsWithRef } from 'react';
+import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 
 import Col from '@/components/utils/Col';
@@ -10,49 +11,62 @@ type Props = ComponentPropsWithRef<'div'> & LayoutRouteProps;
 
 const AuthLayout: React.FC<Props> = ({ title, description, children }) => {
   return (
-    <Container align="center" justify="center">
-      <Card>
-        <header>
-          <Col gap={32}>
-            <Row align="center" gap={8}>
-              <LogoImage src="/logo.svg" alt="" />
-              <LogoTitle>시대생 통합계정</LogoTitle>
-            </Row>
-            <Col>
-              {title && <CardTitle>{title}</CardTitle>}
-              {description && <CardDescription>{description}</CardDescription>}
+    <>
+      <Helmet>
+        <title>{title} | 시대생 통합계정</title>
+        <meta property="og:title" content={`${title} | 시대생 통합계정`} />
+        <meta property="og:description" content={description} />
+      </Helmet>
+
+      <Container align="center" justify="center">
+        <Card>
+          <header>
+            <Col gap={32}>
+              <Row align="center" gap={8}>
+                <LogoImage src="/logo.svg" alt="" />
+                <LogoTitle>시대생 통합계정</LogoTitle>
+              </Row>
+              <Col>
+                {title && <CardTitle>{title}</CardTitle>}
+                {description && (
+                  <CardDescription>{description}</CardDescription>
+                )}
+              </Col>
             </Col>
-          </Col>
-        </header>
+          </header>
 
-        <article>{children}</article>
+          <article>{children}</article>
 
-        <Footer>
-          <Col gap={8}>
-            <Row gap={8}>
-              <ServiceLink
-                href="https://www.uoslife.team/docs/privacy"
-                target="_blank"
-              >
-                개인정보처리방침
-              </ServiceLink>
-              <ServiceLink
-                href="https://www.uoslife.team/docs/tos"
-                target="_blank"
-              >
-                서비스 이용약관
-              </ServiceLink>
-              <ServiceLink href="https://www.uoslife.team/blog" target="_blank">
-                공지사항
-              </ServiceLink>
-            </Row>
-            <ServiceCopyright>
-              © 2022 시대생팀, All Rights Reserved.
-            </ServiceCopyright>
-          </Col>
-        </Footer>
-      </Card>
-    </Container>
+          <Footer>
+            <Col gap={8}>
+              <Row gap={8}>
+                <ServiceLink
+                  href="https://www.uoslife.team/docs/privacy"
+                  target="_blank"
+                >
+                  개인정보처리방침
+                </ServiceLink>
+                <ServiceLink
+                  href="https://www.uoslife.team/docs/tos"
+                  target="_blank"
+                >
+                  서비스 이용약관
+                </ServiceLink>
+                <ServiceLink
+                  href="https://www.uoslife.team/blog"
+                  target="_blank"
+                >
+                  공지사항
+                </ServiceLink>
+              </Row>
+              <ServiceCopyright>
+                © 2022 시대생팀, All Rights Reserved.
+              </ServiceCopyright>
+            </Col>
+          </Footer>
+        </Card>
+      </Container>
+    </>
   );
 };
 
