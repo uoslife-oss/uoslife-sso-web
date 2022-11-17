@@ -1,7 +1,8 @@
 import { RouteProps } from 'react-router-dom';
 
+import LoginPage from '@/pages/auth/LoginPage';
+import RegisterPage from '@/pages/auth/RegisterPage';
 import HomePage from '@/pages/HomePage';
-import LoginPage from '@/pages/LoginPage';
 
 export type LayoutRouteProps = { title?: string; description?: string };
 type CustomRouteProps = RouteProps & { layout?: LayoutRouteProps };
@@ -13,6 +14,14 @@ export const PUBLIC_ROUTES: CustomRouteProps[] = [
     layout: {
       title: '로그인',
       description: '시대생 통합계정을 이용해 로그인할 수 있습니다.',
+    },
+  },
+  {
+    path: '/register',
+    element: <RegisterPage />,
+    layout: {
+      title: '회원가입',
+      description: '새로워진 시대생 통합계정으로 가입할 수 있습니다.',
     },
   },
 ];

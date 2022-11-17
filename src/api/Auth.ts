@@ -8,6 +8,8 @@ import {
   ProfileResponse,
   RefreshRequest,
   RefreshResponse,
+  RegisterRequest,
+  RegisterResponse,
 } from '@/models';
 import { TokenStorage } from '@/utils/storages';
 
@@ -22,6 +24,12 @@ const Login = async (
   }
 
   return response;
+};
+
+const Register = async (
+  data: RegisterRequest,
+): Promise<AxiosResponse<RegisterResponse>> => {
+  return axiosInstance.post('/users', data);
 };
 
 const Refresh = async (
@@ -41,6 +49,7 @@ const Profile = async (): Promise<AxiosResponse<ProfileResponse>> =>
 
 export default {
   Login,
+  Register,
   Refresh,
   Profile,
 };

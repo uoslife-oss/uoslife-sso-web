@@ -51,6 +51,7 @@ module.exports = {
     'react/state-in-constructor': 0,
     'react/static-property-placement': 0,
     'react/display-name': 'off',
+    'import/no-named-as-default': 'off',
     'import/order': [
       'error',
       {

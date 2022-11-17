@@ -8,7 +8,6 @@ import { PRIVATE_ROUTES, PUBLIC_ROUTES } from '@/router/Routes';
 const Router: React.FC = () => (
   <BrowserRouter>
     <Routes>
-      {/* Public Routes */}
       {PUBLIC_ROUTES.map((route) => (
         <Route
           key={route.path}
@@ -17,13 +16,21 @@ const Router: React.FC = () => (
         />
       ))}
 
-      {/* Private Routes */}
       {PRIVATE_ROUTES.map((route) => (
         <Route key={route.path} {...route} />
       ))}
 
-      {/* Fallback Routes */}
-      <Route path="*" element={<ErrorPage />} />
+      <Route
+        path="*"
+        element={
+          <AuthLayout
+            title="404 Not Found"
+            description="페이지를 찾을 수 없습니다."
+          >
+            <ErrorPage />
+          </AuthLayout>
+        }
+      />
     </Routes>
   </BrowserRouter>
 );

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
+import { Toaster } from 'react-hot-toast';
 import { ThemeProvider } from 'styled-components';
 
 import Router from '@/router/Router';
@@ -13,6 +14,7 @@ root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <GlobalStyle />
+      <Toaster />
       <Router />
     </ThemeProvider>
   </React.StrictMode>,

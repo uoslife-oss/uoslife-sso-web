@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ComponentPropsWithRef } from 'react';
 import { Helmet } from 'react-helmet';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Col from '@/components/utils/Col';
@@ -22,10 +23,12 @@ const AuthLayout: React.FC<Props> = ({ title, description, children }) => {
         <Card>
           <header>
             <Col gap={32}>
-              <Row align="center" gap={8}>
-                <LogoImage src="/logo.svg" alt="" />
-                <LogoTitle>시대생 통합계정</LogoTitle>
-              </Row>
+              <LogoLink to="/">
+                <Row align="center" gap={8}>
+                  <LogoImage src="/logo.svg" alt="" />
+                  <LogoTitle>시대생 통합계정</LogoTitle>
+                </Row>
+              </LogoLink>
               <Col>
                 {title && <CardTitle>{title}</CardTitle>}
                 {description && (
@@ -82,6 +85,13 @@ const Card = styled(Col)`
   padding: 24px 32px;
   min-width: 390px;
   gap: 48px;
+`;
+
+const LogoLink = styled(Link)`
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
 `;
 
 const LogoImage = styled.img`

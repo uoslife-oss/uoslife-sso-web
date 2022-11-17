@@ -9,6 +9,19 @@ export type LoginResponse = {
   userId: string;
 };
 
+export type RegisterRequest = {
+  username: string;
+  password: string;
+  email: string;
+  name: string;
+  phoneNumber: string;
+};
+
+export type RegisterResponse = Omit<
+  ProfileResponse,
+  'studentNumber' | 'major' | 'department'
+>;
+
 export type RefreshRequest = {
   refreshToken: string;
 };
