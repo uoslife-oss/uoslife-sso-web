@@ -13,12 +13,14 @@ const ActionButton: React.FC<ComponentPropsWithRef<'button'> & ButtonProps> = ({
   color,
   design,
   fill,
+  disabled,
   children,
   ...restProps
 }) => {
   return (
     <Container
       $fill={fill}
+      $disabled={disabled}
       size={size ?? 'md'}
       color={color ?? 'primary'}
       design={design ?? 'solid'}
@@ -29,7 +31,9 @@ const ActionButton: React.FC<ComponentPropsWithRef<'button'> & ButtonProps> = ({
   );
 };
 
-const Container = styled.button<ButtonProps & { $fill?: boolean }>`
+const Container = styled.button<
+  ButtonProps & { $fill?: boolean; $disabled?: boolean }
+>`
   border: 1px solid transparent;
   background: transparent;
 
@@ -50,6 +54,12 @@ const Container = styled.button<ButtonProps & { $fill?: boolean }>`
       max-width: initial;
       flex-grow: 1;
       width: 100%;
+    `}
+
+  ${({ $disabled }) =>
+    $disabled &&
+    css`
+      cursor: not-allowed;
     `}
 `;
 

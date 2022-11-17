@@ -19,7 +19,7 @@ const AuthLayout: React.FC<Props> = ({ title, description, children }) => {
         <meta property="og:description" content={description} />
       </Helmet>
 
-      <Container align="center" justify="center">
+      <Container align="center">
         <Card>
           <header>
             <Col gap={32}>
@@ -74,6 +74,8 @@ const AuthLayout: React.FC<Props> = ({ title, description, children }) => {
 };
 
 const Container = styled(Col)`
+  padding-top: 64px;
+  padding-bottom: 64px;
   min-height: 100vh;
   background: ${({ theme }) => theme.colors.White};
 `;

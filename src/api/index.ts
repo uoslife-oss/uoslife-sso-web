@@ -6,6 +6,6 @@ export const DeviceAPI = Device;
 
 export type ErrorResponse = {
   error: string;
-  message?: string;
+  message: string;
   statusCode: number;
 };

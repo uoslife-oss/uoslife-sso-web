@@ -5,6 +5,7 @@ export type ButtonProps = {
   color?: 'primary' | 'secondary';
   design?: 'solid' | 'outline' | 'text';
   fill?: boolean;
+  disabled?: boolean;
 };
 
 export const getCalculatedSize = (
