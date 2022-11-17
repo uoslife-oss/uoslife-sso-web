@@ -4,6 +4,7 @@ import * as ReactDOM from 'react-dom/client';
 import { Toaster } from 'react-hot-toast';
 import { ThemeProvider } from 'styled-components';
 
+import { AuthenticationContextProvider } from '@/hooks/AuthenticationContext';
 import Router from '@/router/Router';
 import config from '@/utils/config';
 import { GlobalStyle, theme } from '@/utils/styles';
@@ -23,7 +24,10 @@ root.render(
 
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <Router />
+
+      <AuthenticationContextProvider>
+        <Router />
+      </AuthenticationContextProvider>
     </ThemeProvider>
   </React.StrictMode>,
 );

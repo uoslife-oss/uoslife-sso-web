@@ -1,13 +1,16 @@
 import { get } from 'radash';
 import * as React from 'react';
+import { useEffect } from 'react';
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
-import { AuthAPI } from '@/api';
 import ActionButton from '@/components/buttons/ActionButton';
 import LinkedButton from '@/components/buttons/LinkedButton';
 import TextInput from '@/components/forms/TextInput';
 import Col from '@/components/utils/Col';
 import Row from '@/components/utils/Row';
+import { useAuthenticationContext } from '@/hooks/AuthenticationContext';
 
 interface ILoginForm {
   username: string;
@@ -16,17 +19,28 @@ interface ILoginForm {
 
 const LoginPage: React.FC = () => {
   const { handleSubmit, control, setError } = useForm<ILoginForm>();
+  const navigate = useNavigate();
+  const { login, isAuthenticating, isAuthenticated } =
+    useAuthenticationContext();
 
   const onSubmit: SubmitHandler<ILoginForm> = async (form) => {
-    const { status, data } = await AuthAPI.Login(form);
+    const isAuthenticated = await login(form);
 
-    if (status !== 201)
+    if (!isAuthenticated)
       return setError('username', {
         message: '아이디 또는 비밀번호를 확인하세요.',
       });
 
-    alert(data.userId);
+    return navigate('/');
   };
+
+  useEffect(() => {
+    if (isAuthenticating) return;
+    if (isAuthenticated) {
+      toast.error('이미 로그인 되어있습니다.');
+      return navigate('/');
+    }
+  }, [isAuthenticating, navigate]);
 
   return (
     <Col gap={16}>

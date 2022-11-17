@@ -1,5 +1,6 @@
 import { get } from 'radash';
 import * as React from 'react';
+import { useCallback } from 'react';
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
@@ -27,7 +28,7 @@ const RegisterPage: React.FC = () => {
     useForm<RegisterForm>();
   const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<RegisterForm> = async (form) => {
+  const onSubmit: SubmitHandler<RegisterForm> = useCallback(async (form) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { passwordCheck, checkPrivacy, checkTos, ...requestForm } = form;
 
@@ -45,7 +46,7 @@ const RegisterPage: React.FC = () => {
 
     toast.error('입력 내용을 확인해주세요.');
     return setError(field, { message });
-  };
+  }, []);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

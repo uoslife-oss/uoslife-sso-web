@@ -16,14 +16,7 @@ import { TokenStorage } from '@/utils/storages';
 const Login = async (
   data: LoginRequest,
 ): Promise<AxiosResponse<LoginResponse>> => {
-  const response = await axiosInstance.post('/auth/login', data);
-
-  if (response.status === 201) {
-    TokenStorage.accessToken.set(response.data.accessToken);
-    TokenStorage.refreshToken.set(response.data.refreshToken);
-  }
-
-  return response;
+  return axiosInstance.post('/auth/login', data);
 };
 
 const Register = async (
