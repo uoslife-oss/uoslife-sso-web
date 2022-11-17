@@ -40,7 +40,7 @@ export const GlobalStyle = createGlobalStyle`
     ${typographies.Heading6};
   }
   
-  strong, a {
+  strong {
     font-weight: 700;
     font-size: inherit;
     font-family: inherit;
@@ -48,6 +48,10 @@ export const GlobalStyle = createGlobalStyle`
   
   a:hover {
     text-decoration: underline;
+  }
+  
+  p {
+    margin: 0;
   }
 `;
 

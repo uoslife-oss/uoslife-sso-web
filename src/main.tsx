@@ -1,9 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
-import { RouterProvider } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
-import { router } from '@/router';
+import Router from '@/router/Router';
 import { GlobalStyle, theme } from '@/utils/styles';
 
 const root = ReactDOM.createRoot(
@@ -14,7 +13,7 @@ root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <RouterProvider router={router} />
+      <Router />
     </ThemeProvider>
   </React.StrictMode>,
 );

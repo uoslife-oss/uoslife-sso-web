@@ -22,7 +22,7 @@ const Container = styled.div<Props & { $fill?: boolean }>`
   ${({ padding }) => padding && `padding: ${padding}px;`}
   ${({ justify }) => justify && `justify-content: ${justify};`};
   ${({ align }) => align && `align-items: ${align};`};
-  ${({ gap }) => gap && `col-gap: ${gap}px;`};
+  ${({ gap }) => gap && `gap: ${gap}px;`};
   ${({ reverse }) => reverse && 'flex-direction: column-reverse;'}
   ${({ $fill }) => $fill && 'flex-grow: 1;'}
 `;
