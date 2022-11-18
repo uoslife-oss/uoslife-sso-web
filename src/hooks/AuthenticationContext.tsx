@@ -35,7 +35,7 @@ export const AuthenticationContextProvider: React.FC<PropsWithChildren> =
       const refreshToken = TokenStorage.refreshToken.get();
       if (!refreshToken) return setIsAuthenticating(false);
 
-      AuthAPI.Refresh({ refreshToken })
+      AuthAPI.refresh({ refreshToken })
         .then(({ status, data }) => {
           if (status === 200) {
             setIsAuthenticated(true);
@@ -47,7 +47,7 @@ export const AuthenticationContextProvider: React.FC<PropsWithChildren> =
     }, [setIsAuthenticating, setIsAuthenticated]);
 
     const login = useCallback(async (payload: LoginRequest) => {
-      const { status, data } = await AuthAPI.Login(payload);
+      const { status, data } = await AuthAPI.login(payload);
 
       if (status === 201) {
         setIsAuthenticated(true);

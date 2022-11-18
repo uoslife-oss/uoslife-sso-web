@@ -1,6 +1,6 @@
 import { get } from 'radash';
 import * as React from 'react';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
@@ -22,7 +22,7 @@ const LoginPage: React.FC = () => {
   const { login, isAuthenticating, isAuthenticated } =
     useAuthenticationContext();
 
-  const onSubmit: SubmitHandler<LoginForm> = async (form) => {
+  const onSubmit: SubmitHandler<LoginForm> = useCallback(async (form) => {
     const isAuthenticated = await login(form);
 
     if (!isAuthenticated) {
@@ -32,7 +32,7 @@ const LoginPage: React.FC = () => {
     }
 
     return navigate('/');
-  };
+  }, []);
 
   useEffect(() => {
     if (isAuthenticating) return;
@@ -43,7 +43,7 @@ const LoginPage: React.FC = () => {
   }, [isAuthenticating]);
 
   return (
-    <Col gap={16}>
+    <Col gap={32}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Col gap={32}>
           <Col gap={16}>
@@ -106,6 +106,15 @@ const LoginPage: React.FC = () => {
           </Col>
         </Col>
       </form>
+      <ActionButton
+        color="secondary"
+        design="outline"
+        size="sm"
+        fill
+        onClick={() => navigate('/migration')}
+      >
+        기존 시대생 계정 통합하기
+      </ActionButton>
     </Col>
   );
 };

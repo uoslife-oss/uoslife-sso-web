@@ -25,7 +25,7 @@ const onRejected = async (error: ErrorWithRetry): Promise<AxiosResponse> => {
 
   error.config.remainingRetry = error.config.remainingRetry - 1;
 
-  const { status, data } = await AuthAPI.Refresh({
+  const { status, data } = await AuthAPI.refresh({
     refreshToken: TokenStorage.refreshToken.get() || '',
   });
   if (status === 401) return Promise.reject(error);

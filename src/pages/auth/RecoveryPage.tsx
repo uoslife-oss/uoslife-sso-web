@@ -1,5 +1,6 @@
 import { get } from 'radash';
 import * as React from 'react';
+import { useCallback } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,9 +17,9 @@ const RecoveryPage: React.FC = () => {
     resolver: useYupValidationResolver<RecoveryForm>(recoverySchema),
   });
 
-  const onSubmit: SubmitHandler<RecoveryForm> = async (form) => {
+  const onSubmit: SubmitHandler<RecoveryForm> = useCallback(async (form) => {
     // TODO: Handle Recovery Email Action
-  };
+  }, []);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

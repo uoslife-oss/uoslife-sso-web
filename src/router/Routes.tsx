@@ -1,6 +1,7 @@
 import { RouteProps } from 'react-router-dom';
 
 import LoginPage from '@/pages/auth/LoginPage';
+import MigrationPage from '@/pages/auth/MigrationPage';
 import RecoveryPage from '@/pages/auth/RecoveryPage';
 import RegisterPage from '@/pages/auth/RegisterPage';
 import HomePage from '@/pages/HomePage';
@@ -31,6 +32,15 @@ export const PUBLIC_ROUTES: CustomRouteProps[] = [
     layout: {
       title: '계정 찾기',
       description: '이메일 인증으로 계정을 찾을 수 있습니다.',
+    },
+  },
+  {
+    path: '/migration',
+    element: <MigrationPage />,
+    layout: {
+      title: '계정 통합',
+      description:
+        '기존에 사용하던 시대생 계정을 통합계정으로 전환할 수 있습니다.',
     },
   },
 ];

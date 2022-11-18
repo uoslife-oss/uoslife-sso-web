@@ -5,6 +5,7 @@ import { axiosInstance } from './instance';
 import {
   LoginRequest,
   LoginResponse,
+  MigrationRequest,
   ProfileResponse,
   RefreshRequest,
   RefreshResponse,
@@ -13,19 +14,19 @@ import {
 } from '@/models';
 import { TokenStorage } from '@/utils/storages';
 
-const Login = async (
+const login = async (
   data: LoginRequest,
 ): Promise<AxiosResponse<LoginResponse>> => {
   return axiosInstance.post('/auth/login', data);
 };
 
-const Register = async (
+const register = async (
   data: RegisterRequest,
 ): Promise<AxiosResponse<RegisterResponse>> => {
   return axiosInstance.post('/users', data);
 };
 
-const Refresh = async (
+const refresh = async (
   data: RefreshRequest,
 ): Promise<AxiosResponse<RefreshResponse>> => {
   const response = await axiosInstance.patch('/auth/refresh', data);
@@ -37,12 +38,18 @@ const Refresh = async (
   return response;
 };
 
-const Profile = async (): Promise<AxiosResponse<ProfileResponse>> =>
+const profile = async (): Promise<AxiosResponse<ProfileResponse>> =>
   axiosInstance.get('/auth/profile');
 
+const migration = async (
+  data: MigrationRequest,
+): Promise<AxiosResponse<ProfileResponse>> =>
+  axiosInstance.post('/users/migration', data);
+
 export default {
-  Login,
-  Register,
-  Refresh,
-  Profile,
+  login,
+  register,
+  refresh,
+  profile,
+  migration,
 };

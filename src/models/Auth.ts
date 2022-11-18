@@ -45,3 +45,9 @@ export type ProfileResponse = {
   major: string;
   department: string;
 };
+
+export type MigrationRequest = {
+  username: string;
+  password: string;
+  email: string;
+};

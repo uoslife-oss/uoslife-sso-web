@@ -1,14 +1,5 @@
-type SubMenu = {
-  title: string;
-  emoji: string;
-  link: string;
-};
-
-type Menu = {
-  title: string;
-  emoji: string;
-  children: SubMenu[];
-};
+type SubMenu = { title: string; emoji: string; link: string };
+type Menu = { title: string; emoji: string; children: SubMenu[] };
 
 export const sidebarConfig: Menu[] = [
   {
@@ -26,33 +17,23 @@ export const sidebarConfig: Menu[] = [
     title: '통합계정 이용내역',
     emoji: '🔗',
     children: [
-      {
-        emoji: '📃',
-        title: '연동 중인 서비스',
-        link: '/services',
-      },
+      { emoji: '📱', title: '로그인한 기기', link: '/devices' },
+      { emoji: '📃', title: '연동 중인 서비스', link: '/services' },
+      { emoji: '🤯', title: '서비스 이용제한 내역', link: '/block-logs' },
     ],
   },
   {
     title: '개발자 센터',
-    emoji: '👨🏻‍💻',
+    emoji: '‍🔨',
     children: [
-      {
-        emoji: '⭐️',
-        title: '내 서비스 관리',
-        link: '/developer/services',
-      },
+      { emoji: '⭐️', title: '내 서비스 관리', link: '/developer/services' },
     ],
   },
   {
     title: '고객지원 센터',
     emoji: '☎️',
     children: [
-      {
-        emoji: '💬',
-        title: '채팅으로 상담하기',
-        link: '#',
-      },
+      { emoji: '💬', title: '채팅으로 상담하기', link: '#' },
       {
         emoji: '🔐',
         title: '개인정보처리방침',

@@ -31,7 +31,7 @@ const RegisterPage: React.FC = () => {
       return setError(field, { message });
     }
 
-    const { status, data } = await AuthAPI.Register(requestForm);
+    const { status, data } = await AuthAPI.register(requestForm);
     if (status === 201) return navigate('/login');
 
     const error = data as unknown as ErrorResponse;

@@ -31,7 +31,7 @@ export const AuthorizationContextProvider: React.FC<PropsWithChildren> =
 
       setIsLoadingProfile(true);
 
-      AuthAPI.Profile()
+      AuthAPI.profile()
         .then(({ status, data }) => {
           if (status === 200) setProfile(data);
           return setIsLoadingProfile(false);
