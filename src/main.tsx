@@ -7,7 +7,7 @@ import { ThemeProvider } from 'styled-components';
 import { AuthenticationContextProvider } from '@/hooks/AuthenticationContext';
 import { AuthorizationContextProvider } from '@/hooks/AuthorizationContext';
 import Router from '@/router/Router';
-import config from '@/utils/config';
+import config from '@/utils/configs/common.config';
 import { GlobalStyle, theme } from '@/utils/styles';
 
 const root = ReactDOM.createRoot(

@@ -11,7 +11,7 @@ import CheckInput from '@/components/forms/CheckInput';
 import TextInput from '@/components/forms/TextInput';
 import Col from '@/components/utils/Col';
 import { useYupValidationResolver } from '@/hooks/YupValidationResolver';
-import { getErrorInfo } from '@/utils/errorConfigs';
+import { getErrorInfo } from '@/utils/configs/error.config';
 import { RegisterForm, registerSchema } from '@/utils/schemas';
 
 const RegisterPage: React.FC = () => {

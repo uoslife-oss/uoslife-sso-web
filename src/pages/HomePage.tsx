@@ -30,7 +30,7 @@ const HomePage: React.FC = () => {
       <Col justify="center" align="center" fill gap={16}>
         <h5>{profile.name}님 안녕하세요!</h5>
         <h6>{profile.email}</h6>
-        <ActionButton size="sm" fill onClick={() => logout(navigate)}>
+        <ActionButton size="sm" onClick={() => logout(navigate)}>
           로그아웃
         </ActionButton>
       </Col>

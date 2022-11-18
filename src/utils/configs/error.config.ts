@@ -1,7 +1,7 @@
 type ErrorConfig = { field: string; message: string };
 type ErrorResult<T> = { field: keyof T; message: string };
 
-const errorConfigs: Record<string, ErrorConfig> = {
+const errorConfig: Record<string, ErrorConfig> = {
   PASSWORD_NOT_MATCH: {
     field: 'passwordCheck',
     message: '비밀번호가 일치하지 않습니다.',
@@ -25,6 +25,6 @@ const errorConfigs: Record<string, ErrorConfig> = {
 };
 
 export const getErrorInfo = <T>(message: string): ErrorResult<T> => {
-  const error = errorConfigs[message as string];
+  const error = errorConfig[message as string];
   return { field: error.field as keyof T, message: error.message };
 };

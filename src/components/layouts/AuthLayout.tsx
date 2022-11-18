@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+import Logo from '@/components/common/Logo';
 import Col from '@/components/utils/Col';
 import Row from '@/components/utils/Row';
 import { LayoutRouteProps } from '@/router/Routes';
@@ -14,8 +15,13 @@ const AuthLayout: React.FC<Props> = ({ title, description, children }) => {
   return (
     <>
       <Helmet>
-        <title>{title} | 시대생 통합계정</title>
-        <meta property="og:title" content={`${title} | 시대생 통합계정`} />
+        <title>
+          {title ? `${title} | 시대생 통합계정` : '시대생 통합계정'}
+        </title>
+        <meta
+          property="og:title"
+          content={title ? `${title} | 시대생 통합계정` : '시대생 통합계정'}
+        />
         <meta property="og:description" content={description} />
       </Helmet>
 
@@ -24,10 +30,7 @@ const AuthLayout: React.FC<Props> = ({ title, description, children }) => {
           <header>
             <Col gap={32}>
               <LogoLink to="/">
-                <Row align="center" gap={8}>
-                  <LogoImage src="/logo.svg" alt="" />
-                  <LogoTitle>시대생 통합계정</LogoTitle>
-                </Row>
+                <Logo />
               </LogoLink>
               <Col>
                 {title && <CardTitle>{title}</CardTitle>}
@@ -96,14 +99,6 @@ const LogoLink = styled(Link)`
   &:hover {
     text-decoration: none;
   }
-`;
-
-const LogoImage = styled.img`
-  height: 24px;
-`;
-
-const LogoTitle = styled.h5`
-  color: ${({ theme }) => theme.colors.Black};
 `;
 
 const CardTitle = styled.h3`
