@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+import AppLayout from '@/components/layouts/AppLayout';
 import AuthLayout from '@/components/layouts/AuthLayout';
 import ErrorPage from '@/pages/ErrorPage';
 import { PRIVATE_ROUTES, PUBLIC_ROUTES } from '@/router/Routes';
@@ -17,7 +18,11 @@ const Router: React.FC = () => (
       ))}
 
       {PRIVATE_ROUTES.map((route) => (
-        <Route key={route.path} {...route} />
+        <Route
+          key={route.path}
+          path={route.path}
+          element={<AppLayout {...route.layout}>{route.element}</AppLayout>}
+        />
       ))}
 
       <Route

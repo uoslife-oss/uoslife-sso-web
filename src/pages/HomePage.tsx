@@ -2,26 +2,39 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import BaseLayout from '@/components/layouts/BaseLayout';
+import ActionButton from '@/components/buttons/ActionButton';
 import Col from '@/components/utils/Col';
-import { useAuthenticationContext } from '@/hooks/AuthenticationContext';
+import { useAuthenticationContext } from '@/hooks';
+import { useAuthorizationContext } from '@/hooks/AuthorizationContext';
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
-  const { isAuthenticated, isAuthenticating } = useAuthenticationContext();
+  const { logout } = useAuthenticationContext();
+  const { isLoadingProfile, profile } = useAuthorizationContext();
+  const [isLoading, setIsLoading] = React.useState(true);
 
   useEffect(() => {
-    if (isAuthenticating) return;
-    if (!isAuthenticated) return navigate('/login');
-  }, [isAuthenticating]);
+    if (!isLoadingProfile && profile) setIsLoading(false);
+  }, [isLoadingProfile]);
+
+  if (isLoading) {
+    return (
+      <Col justify="center" align="center" fill>
+        정보를 가져오고 있습니다
+      </Col>
+    );
+  }
 
   return (
-    <BaseLayout>
-      <Col justify="center" align="center" fill>
-        <h4>시대생 통합계정</h4>
-        <h6>https://sso.uoslife.team</h6>
+    profile && (
+      <Col justify="center" align="center" fill gap={16}>
+        <h5>{profile.name}님 안녕하세요!</h5>
+        <h6>{profile.email}</h6>
+        <ActionButton size="sm" fill onClick={logout}>
+          로그아웃
+        </ActionButton>
       </Col>
-    </BaseLayout>
+    )
   );
 };
 

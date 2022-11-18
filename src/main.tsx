@@ -5,6 +5,7 @@ import { Toaster } from 'react-hot-toast';
 import { ThemeProvider } from 'styled-components';
 
 import { AuthenticationContextProvider } from '@/hooks/AuthenticationContext';
+import { AuthorizationContextProvider } from '@/hooks/AuthorizationContext';
 import Router from '@/router/Router';
 import config from '@/utils/config';
 import { GlobalStyle, theme } from '@/utils/styles';
@@ -29,7 +30,9 @@ root.render(
       <GlobalStyle />
 
       <AuthenticationContextProvider>
-        <Router />
+        <AuthorizationContextProvider>
+          <Router />
+        </AuthorizationContextProvider>
       </AuthenticationContextProvider>
     </ThemeProvider>
   </React.StrictMode>,

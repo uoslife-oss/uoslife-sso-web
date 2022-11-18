@@ -25,10 +25,11 @@ const LoginPage: React.FC = () => {
   const onSubmit: SubmitHandler<LoginForm> = async (form) => {
     const isAuthenticated = await login(form);
 
-    if (!isAuthenticated)
+    if (!isAuthenticated) {
       return setError('username', {
         message: '아이디 또는 비밀번호를 확인하세요.',
       });
+    }
 
     return navigate('/');
   };

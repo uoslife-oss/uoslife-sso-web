@@ -39,6 +39,9 @@ export const PRIVATE_ROUTES: CustomRouteProps[] = [
   {
     path: '/',
     element: <HomePage />,
+    layout: {
+      title: '내 계정',
+    },
   },
 ];
 

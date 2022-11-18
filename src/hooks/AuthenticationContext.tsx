@@ -34,11 +34,11 @@ export const AuthenticationContextProvider: React.FC<PropsWithChildren> =
       if (!refreshToken) return setIsAuthenticating(false);
 
       AuthAPI.Refresh({ refreshToken }).then(({ status, data }) => {
+        if (status === 200) {
+          setIsAuthenticated(true);
+          TokenStorage.accessToken.set(data.accessToken);
+        }
         setIsAuthenticating(false);
-        if (status !== 200) return;
-
-        setIsAuthenticated(true);
-        TokenStorage.accessToken.set(data.accessToken);
       });
     }, [setIsAuthenticating, setIsAuthenticated]);
 
