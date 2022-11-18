@@ -40,7 +40,7 @@ const LoginPage: React.FC = () => {
       toast.error('이미 로그인 되어있습니다.');
       return navigate('/');
     }
-  }, [isAuthenticating, navigate]);
+  }, [isAuthenticating]);
 
   return (
     <Col gap={16}>

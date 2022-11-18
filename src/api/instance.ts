@@ -21,7 +21,7 @@ const onFulfilled = (response: AxiosResponse): AxiosResponse => response;
 
 const onRejected = async (error: ErrorWithRetry): Promise<AxiosResponse> => {
   if (!error.config.remainingRetry) error.config.remainingRetry = RETRY_COUNT;
-  if (error.config.remainingRetry === 0) return Promise.reject(error);
+  if (error.config.remainingRetry < 0) return Promise.reject(error);
 
   error.config.remainingRetry = error.config.remainingRetry - 1;
 

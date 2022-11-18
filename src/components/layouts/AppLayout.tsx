@@ -1,16 +1,31 @@
 import * as React from 'react';
-import { ComponentPropsWithRef } from 'react';
+import { ComponentPropsWithRef, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Col from '@/components/utils/Col';
 import Row from '@/components/utils/Row';
+import { useAuthenticationContext } from '@/hooks';
+import { useAuthorizationContext } from '@/hooks/AuthorizationContext';
 import { LayoutRouteProps } from '@/router/Routes';
 
 type Props = ComponentPropsWithRef<'div'> & LayoutRouteProps;
 
 const AppLayout: React.FC<Props> = ({ title, description, children }) => {
+  const navigate = useNavigate();
+  const { isAuthenticating, isAuthenticated } = useAuthenticationContext();
+  const { isLoadingProfile, profile } = useAuthorizationContext();
+
+  useEffect(() => {
+    if (isAuthenticating) return;
+    if (!isAuthenticated) {
+      toast.error('로그인이 필요한 페이지입니다.');
+      return navigate('/login');
+    }
+  }, [isAuthenticating, isLoadingProfile]);
+
   return (
     <>
       <Helmet>

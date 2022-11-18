@@ -27,14 +27,16 @@ export const AuthorizationContextProvider: React.FC<PropsWithChildren> =
     const [profile, setProfile] = React.useState<ProfileResponse | null>(null);
 
     const initialize = useCallback(() => {
-      if (isAuthenticating) return;
+      if (isAuthenticating || !isAuthenticated) return;
 
       setIsLoadingProfile(true);
 
-      AuthAPI.Profile().then(({ status, data }) => {
-        if (status === 200) setProfile(data);
-        return setIsLoadingProfile(false);
-      });
+      AuthAPI.Profile()
+        .then(({ status, data }) => {
+          if (status === 200) setProfile(data);
+          return setIsLoadingProfile(false);
+        })
+        .catch(() => setIsLoadingProfile(false));
     }, [isAuthenticated]);
 
     useEffect(() => initialize(), [isAuthenticating, isAuthenticated]);

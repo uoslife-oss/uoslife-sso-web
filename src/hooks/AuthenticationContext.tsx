@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { PropsWithChildren, useCallback, useContext, useEffect } from 'react';
+import toast from 'react-hot-toast';
+import { NavigateFunction } from 'react-router-dom';
 
 import { AuthAPI } from '@/api';
 import { LoginRequest } from '@/models';
@@ -11,7 +13,7 @@ type AuthenticationContextProps = {
   isAuthenticated: boolean;
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
   login: (payload: LoginRequest) => Promise<boolean>;
-  logout: () => void;
+  logout: (navigate: NavigateFunction) => void;
 };
 
 export const AuthenticationContext =
@@ -33,13 +35,15 @@ export const AuthenticationContextProvider: React.FC<PropsWithChildren> =
       const refreshToken = TokenStorage.refreshToken.get();
       if (!refreshToken) return setIsAuthenticating(false);
 
-      AuthAPI.Refresh({ refreshToken }).then(({ status, data }) => {
-        if (status === 200) {
-          setIsAuthenticated(true);
-          TokenStorage.accessToken.set(data.accessToken);
-        }
-        setIsAuthenticating(false);
-      });
+      AuthAPI.Refresh({ refreshToken })
+        .then(({ status, data }) => {
+          if (status === 200) {
+            setIsAuthenticated(true);
+            TokenStorage.accessToken.set(data.accessToken);
+          }
+          setIsAuthenticating(false);
+        })
+        .catch(() => setIsAuthenticating(false));
     }, [setIsAuthenticating, setIsAuthenticated]);
 
     const login = useCallback(async (payload: LoginRequest) => {
@@ -55,12 +59,16 @@ export const AuthenticationContextProvider: React.FC<PropsWithChildren> =
       return false;
     }, []);
 
-    const logout = useCallback(() => {
-      setIsAuthenticated(false);
-      TokenStorage.accessToken.clear();
-      TokenStorage.refreshToken.clear();
-      location.replace('/login');
-    }, []);
+    const logout = useCallback(
+      (navigate: NavigateFunction) => {
+        TokenStorage.accessToken.clear();
+        TokenStorage.refreshToken.clear();
+        setIsAuthenticated(false);
+        toast.success('로그아웃 되었습니다.');
+        navigate('/login');
+      },
+      [isAuthenticated],
+    );
 
     useEffect(() => initialize(), []);
 
