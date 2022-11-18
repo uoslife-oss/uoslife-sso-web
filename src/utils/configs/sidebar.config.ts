@@ -1,5 +1,5 @@
-type SubMenu = { title: string; emoji: string; link: string };
-type Menu = { title: string; emoji: string; children: SubMenu[] };
+export type SubMenu = { title: string; emoji: string; link: string };
+export type Menu = { title: string; emoji: string; children: SubMenu[] };
 
 export const sidebarConfig: Menu[] = [
   {
