@@ -10,20 +10,19 @@ import LinkedButton from '@/components/buttons/LinkedButton';
 import TextInput from '@/components/forms/TextInput';
 import Col from '@/components/utils/Col';
 import Row from '@/components/utils/Row';
-import { useAuthenticationContext } from '@/hooks/AuthenticationContext';
-
-interface ILoginForm {
-  username: string;
-  password: string;
-}
+import { useAuthenticationContext, useYupValidationResolver } from '@/hooks';
+import { LoginForm, loginSchema } from '@/utils/schemas/login.schema';
 
 const LoginPage: React.FC = () => {
-  const { handleSubmit, control, setError } = useForm<ILoginForm>();
   const navigate = useNavigate();
+  const { handleSubmit, control, setError } = useForm<LoginForm>({
+    resolver: useYupValidationResolver<LoginForm>(loginSchema),
+  });
+
   const { login, isAuthenticating, isAuthenticated } =
     useAuthenticationContext();
 
-  const onSubmit: SubmitHandler<ILoginForm> = async (form) => {
+  const onSubmit: SubmitHandler<LoginForm> = async (form) => {
     const isAuthenticated = await login(form);
 
     if (!isAuthenticated)
