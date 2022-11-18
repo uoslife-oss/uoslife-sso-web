@@ -85,7 +85,9 @@ const Card = styled(Col)`
   border: 1px solid ${({ theme }) => theme.colors.Secondary7};
   border-radius: 12px;
   padding: 24px 32px;
-  min-width: 390px;
+  width: 100%;
+  min-width: 320px;
+  max-width: 390px;
   gap: 48px;
 `;
 
