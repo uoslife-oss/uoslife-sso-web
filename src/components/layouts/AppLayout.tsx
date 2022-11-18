@@ -7,7 +7,6 @@ import styled from 'styled-components';
 
 import AppBar from '@/components/AppBar';
 import Sidebar from '@/components/Sidebar';
-import Col from '@/components/utils/Col';
 import { useAuthenticationContext } from '@/hooks';
 import { LayoutRouteProps } from '@/router/Routes';
 
@@ -38,12 +37,10 @@ const AppLayout: React.FC<Props> = ({ title, description, children }) => {
 
       <AppBar />
 
-      <Col align="center">
-        <GridArea>
-          <Sidebar />
-          <article>{children}</article>
-        </GridArea>
-      </Col>
+      <GridArea>
+        <Sidebar />
+        <article>{children}</article>
+      </GridArea>
     </>
   );
 };
@@ -55,6 +52,7 @@ const GridArea = styled.div`
   grid-template-columns: 240px 1fr;
   grid-template-rows: 1fr;
   grid-column-gap: 16px;
+  margin: 0 auto;
 `;
 
 export default AppLayout;

@@ -1,21 +1,15 @@
 import * as React from 'react';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import AvatarImage from '@/components/common/AvatarImage';
-import Emoji from '@/components/common/Emoji';
-import Logo from '@/components/common/Logo';
+import AuthStateCard from '@/components/cards/AuthStateCard';
+import ProfileCard from '@/components/cards/ProfileCard';
 import MenuCard from '@/components/Sidebar/MenuCard';
 import Col from '@/components/utils/Col';
-import Row from '@/components/utils/Row';
-import { useAuthenticationContext } from '@/hooks';
-import { useAuthorizationContext } from '@/hooks/AuthorizationContext';
+import { useAuthorizationContext } from '@/hooks';
 import { sidebarConfig } from '@/utils/configs/sidebar.config';
 
 const HomePage: React.FC = () => {
-  const navigate = useNavigate();
-  const { logout } = useAuthenticationContext();
   const { isLoadingProfile, profile } = useAuthorizationContext();
   const [isLoading, setIsLoading] = React.useState(true);
 
@@ -33,22 +27,8 @@ const HomePage: React.FC = () => {
 
   return (
     <Col gap={16}>
-      {profile && (
-        <ProfileCard gap={48}>
-          <Row justify="flex-end">
-            <Logo />
-          </Row>
-          <Row gap={16} align="center">
-            <AvatarImage size={72} src={profile.profileImage} />
-            <Col gap={4}>
-              <h4>
-                <Emoji size={20}>👋</Emoji> 안녕하세요, {profile.name}님!
-              </h4>
-              <p>{profile.email}</p>
-            </Col>
-          </Row>
-        </ProfileCard>
-      )}
+      {profile && <ProfileCard profile={profile} />}
+      {profile && <AuthStateCard state={profile.state} />}
 
       <MenuArea>
         {sidebarConfig.map((menu) => (
@@ -60,12 +40,6 @@ const HomePage: React.FC = () => {
     </Col>
   );
 };
-
-const ProfileCard = styled(Col)`
-  padding: 24px;
-  border: 1px solid ${({ theme }) => theme.colors.Secondary7};
-  border-radius: 12px;
-`;
 
 const MenuArea = styled.div`
   display: grid;
