@@ -15,11 +15,14 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <ReactChannelIO
-      pluginKey={config.CHANNEL_IO_PLUGIN_KEY}
-      language="ko"
-      autoBoot
-    />
+    {import.meta.env.PROD && (
+      <ReactChannelIO
+        pluginKey={config.CHANNEL_IO_PLUGIN_KEY}
+        language="ko"
+        autoBoot
+      />
+    )}
+
     <Toaster position="bottom-left" />
 
     <ThemeProvider theme={theme}>

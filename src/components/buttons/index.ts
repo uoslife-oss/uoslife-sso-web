@@ -1,4 +1,4 @@
-import { css, DefaultTheme } from 'styled-components';
+import styled, { css, DefaultTheme } from 'styled-components';
 
 export type ButtonProps = {
   size?: 'sm' | 'md' | 'lg';
@@ -101,3 +101,35 @@ export const generateButtonStyles = (
     }
   }
 };
+
+export const BaseButton = styled.div<
+  ButtonProps & { $fill?: boolean; $disabled?: boolean }
+>`
+  border: 1px solid transparent;
+  background: transparent;
+
+  ${({ size, theme }) => getCalculatedSize(size, theme)}
+  ${({ design, color, theme }) =>
+    generateButtonStyles({ color, design }, theme)}
+  
+  max-width: fit-content;
+  line-height: 1;
+  border-radius: 8px;
+  font-weight: 700;
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+
+  ${({ $fill }) =>
+    $fill &&
+    css`
+      max-width: initial;
+      flex-grow: 1;
+      width: 100%;
+    `}
+
+  ${({ $disabled }) =>
+    $disabled &&
+    css`
+      cursor: not-allowed;
+    `}
+`;

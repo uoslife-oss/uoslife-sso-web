@@ -82,7 +82,7 @@ const LoginPage: React.FC = () => {
           </Col>
 
           <Col gap={8}>
-            <ActionButton color="primary" design="solid">
+            <ActionButton color="primary" design="solid" type="submit">
               로그인
             </ActionButton>
             <Row gap={8}>

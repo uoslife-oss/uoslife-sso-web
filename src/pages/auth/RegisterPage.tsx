@@ -10,23 +10,16 @@ import ActionButton from '@/components/buttons/ActionButton';
 import CheckInput from '@/components/forms/CheckInput';
 import TextInput from '@/components/forms/TextInput';
 import Col from '@/components/utils/Col';
+import { useYupValidationResolver } from '@/hooks/YupValidationResolver';
 import { getErrorInfo } from '@/utils/errorConfigs';
-
-type RegisterForm = {
-  username: string;
-  password: string;
-  passwordCheck: string;
-  name: string;
-  email: string;
-  phoneNumber: string;
-  checkPrivacy: string;
-  checkTos: string;
-};
+import { RegisterForm, registerSchema } from '@/utils/schemas';
 
 const RegisterPage: React.FC = () => {
-  const { handleSubmit, control, setError, formState } =
-    useForm<RegisterForm>();
   const navigate = useNavigate();
+
+  const { handleSubmit, control, setError, formState } = useForm<RegisterForm>({
+    resolver: useYupValidationResolver<RegisterForm>(registerSchema),
+  });
 
   const onSubmit: SubmitHandler<RegisterForm> = useCallback(async (form) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -55,7 +48,6 @@ const RegisterPage: React.FC = () => {
           <Controller
             name="username"
             control={control}
-            rules={{ required: true }}
             defaultValue=""
             render={({ field, formState: { errors } }) => (
               <TextInput
@@ -63,8 +55,8 @@ const RegisterPage: React.FC = () => {
                 type="text"
                 placeholder="아이디"
                 label="아이디"
-                autoComplete="off"
                 autoFocus={true}
+                autoComplete="username"
                 error={get(errors, 'username.message')}
               />
             )}
@@ -72,15 +64,14 @@ const RegisterPage: React.FC = () => {
           <Controller
             name="password"
             control={control}
-            rules={{ required: true }}
             defaultValue=""
             render={({ field, formState: { errors } }) => (
               <TextInput
                 {...field}
                 type="password"
                 placeholder="비밀번호"
-                autoComplete="off"
                 label="비밀번호"
+                autoComplete="new-password"
                 error={get(errors, 'password.message')}
               />
             )}
@@ -88,15 +79,14 @@ const RegisterPage: React.FC = () => {
           <Controller
             name="passwordCheck"
             control={control}
-            rules={{ required: true }}
             defaultValue=""
             render={({ field, formState: { errors } }) => (
               <TextInput
                 {...field}
                 type="password"
                 placeholder="비밀번호 재입력"
-                autoComplete="off"
                 label="비밀번호 재입력"
+                autoComplete="new-password"
                 error={get(errors, 'passwordCheck.message')}
               />
             )}
@@ -104,15 +94,14 @@ const RegisterPage: React.FC = () => {
           <Controller
             name="name"
             control={control}
-            rules={{ required: true }}
             defaultValue=""
             render={({ field, formState: { errors } }) => (
               <TextInput
                 {...field}
                 type="text"
                 placeholder="이름"
-                autoComplete="off"
                 label="이름"
+                autoComplete="name"
                 error={get(errors, 'name.message')}
               />
             )}
@@ -120,15 +109,14 @@ const RegisterPage: React.FC = () => {
           <Controller
             name="phoneNumber"
             control={control}
-            rules={{ required: true }}
             defaultValue=""
             render={({ field, formState: { errors } }) => (
               <TextInput
                 {...field}
                 type="text"
                 placeholder="전화번호"
-                autoComplete="off"
                 label="전화번호"
+                autoComplete="tel"
                 error={get(errors, 'phoneNumber.message')}
               />
             )}
@@ -136,15 +124,14 @@ const RegisterPage: React.FC = () => {
           <Controller
             name="email"
             control={control}
-            rules={{ required: true }}
             defaultValue=""
             render={({ field, formState: { errors } }) => (
               <TextInput
                 {...field}
                 type="email"
                 placeholder="서울시립대학교 웹메일"
-                autoComplete="off"
                 label="서울시립대학교 웹메일"
+                autoComplete="email"
                 error={get(errors, 'email.message')}
               />
             )}
@@ -180,6 +167,7 @@ const RegisterPage: React.FC = () => {
         </Col>
 
         <ActionButton
+          type="submit"
           color={formState.isValid ? 'primary' : 'secondary'}
           disabled={!formState.isValid}
           design="solid"
