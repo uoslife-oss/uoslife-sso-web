@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { AuthAPI, ErrorResponse } from '@/api';
 import ActionButton from '@/components/buttons/ActionButton';
+import CheckInput from '@/components/forms/CheckInput';
 import TextInput from '@/components/forms/TextInput';
 import Col from '@/components/utils/Col';
 import { useYupValidationResolver } from '@/hooks';
@@ -18,15 +19,32 @@ import {
 
 const MigrationPage: React.FC = () => {
   const navigate = useNavigate();
-  const { handleSubmit, control, setError } = useForm<MigrationForm>({
-    resolver: useYupValidationResolver<MigrationForm>(migrationSchema),
-  });
+  const { handleSubmit, control, setError, formState } = useForm<MigrationForm>(
+    {
+      resolver: useYupValidationResolver<MigrationForm>(migrationSchema),
+    },
+  );
 
   const onSubmit: SubmitHandler<MigrationForm> = useCallback(async (form) => {
-    const { status, data } = await AuthAPI.migration(form);
+    const { status, data } = await AuthAPI.migration({
+      username: form.username,
+      password: form.password,
+      email: form.email,
+    });
+
     if (status === 201) {
       toast.success('계정 통합이 완료되었습니다.');
       return navigate('/login');
+    }
+
+    if (status === 409) {
+      return toast.error('이미 통합이 완료된 계정입니다.');
+    }
+
+    if (status === 400) {
+      return setError('username', {
+        message: '아이디 또는 비밀번호를 확인하세요.',
+      });
     }
 
     const error = data as unknown as ErrorResponse;
@@ -88,9 +106,55 @@ const MigrationPage: React.FC = () => {
                 />
               )}
             />
+
+            <Col gap={4}>
+              <Controller
+                name="checkMigration"
+                control={control}
+                rules={{ required: true }}
+                defaultValue=""
+                render={({ field, formState: { errors } }) => (
+                  <CheckInput
+                    {...field}
+                    label="계정통합 약관에 동의합니다."
+                    error={get(errors, 'checkPrivacy.message')}
+                  />
+                )}
+              />
+              <Controller
+                name="checkPrivacy"
+                control={control}
+                rules={{ required: true }}
+                defaultValue=""
+                render={({ field, formState: { errors } }) => (
+                  <CheckInput
+                    {...field}
+                    label="개인정보처리방침에 동의합니다."
+                    error={get(errors, 'checkPrivacy.message')}
+                  />
+                )}
+              />
+              <Controller
+                name="checkTos"
+                control={control}
+                rules={{ required: true }}
+                defaultValue=""
+                render={({ field, formState: { errors } }) => (
+                  <CheckInput
+                    {...field}
+                    label="시대생 서비스 이용약관에 동의합니다."
+                    error={get(errors, 'checkTos.message')}
+                  />
+                )}
+              />
+            </Col>
           </Col>
 
-          <ActionButton color="primary" design="solid" type="submit">
+          <ActionButton
+            color={formState.isValid ? 'primary' : 'secondary'}
+            design="solid"
+            type="submit"
+          >
             통합계정 전환하기
           </ActionButton>
         </Col>
