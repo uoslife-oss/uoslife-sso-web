@@ -5,6 +5,7 @@ import MigrationPage from '@/pages/auth/MigrationPage';
 import RecoveryPage from '@/pages/auth/RecoveryPage';
 import RegisterPage from '@/pages/auth/RegisterPage';
 import HomePage from '@/pages/HomePage';
+import ChangeAvatarPage from '@/pages/profile/ChangeAvatarPage';
 import ChangeNicknamePage from '@/pages/profile/ChangeNicknamePage';
 
 export type LayoutRouteProps = { title?: string; description?: string };
@@ -52,6 +53,13 @@ export const PRIVATE_ROUTES: CustomRouteProps[] = [
     element: <HomePage />,
     layout: {
       title: '대시보드',
+    },
+  },
+  {
+    path: '/profile/avatar',
+    element: <ChangeAvatarPage />,
+    layout: {
+      title: '프로필 사진 변경',
     },
   },
   {

@@ -6,7 +6,7 @@ export const sidebarConfig: Menu[] = [
     title: '프로필 정보',
     emoji: '👨🏻‍💻',
     children: [
-      { emoji: '📸', title: '아바타 변경', link: '/profile/avatar' },
+      { emoji: '📸', title: '프로필 사진 변경', link: '/profile/avatar' },
       { emoji: '🆕', title: '닉네임 변경', link: '/profile/nickname' },
       { emoji: '🔐', title: '비밀번호 재설정', link: '/profile/password' },
       { emoji: '📧', title: '웹메일 인증', link: '/profile/mail' },

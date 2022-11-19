@@ -6,5 +6,5 @@ export type ChangeNicknameForm = {
 
 export const changeNicknameSchema: yup.SchemaOf<ChangeNicknameForm> =
   yup.object({
-    nickname: yup.string().required('변경할 닉네임을 입력하세요'),
+    nickname: yup.string().required('변경할 닉네임을 입력하세요.'),
   });
