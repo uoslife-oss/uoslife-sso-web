@@ -7,6 +7,7 @@ import RegisterPage from '@/pages/auth/RegisterPage';
 import HomePage from '@/pages/HomePage';
 import ChangeAvatarPage from '@/pages/profile/ChangeAvatarPage';
 import ChangeNicknamePage from '@/pages/profile/ChangeNicknamePage';
+import ChangePasswordPage from '@/pages/profile/ChangePasswordPage';
 
 export type LayoutRouteProps = { title?: string; description?: string };
 type CustomRouteProps = RouteProps & { layout?: LayoutRouteProps };
@@ -67,6 +68,13 @@ export const PRIVATE_ROUTES: CustomRouteProps[] = [
     element: <ChangeNicknamePage />,
     layout: {
       title: '닉네임 변경',
+    },
+  },
+  {
+    path: '/profile/password',
+    element: <ChangePasswordPage />,
+    layout: {
+      title: '비밀번호 재설정',
     },
   },
 ];
