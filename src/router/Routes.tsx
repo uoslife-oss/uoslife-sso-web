@@ -5,6 +5,7 @@ import MigrationPage from '@/pages/auth/MigrationPage';
 import RecoveryPage from '@/pages/auth/RecoveryPage';
 import RegisterPage from '@/pages/auth/RegisterPage';
 import HomePage from '@/pages/HomePage';
+import ChangeNicknamePage from '@/pages/profile/ChangeNicknamePage';
 
 export type LayoutRouteProps = { title?: string; description?: string };
 type CustomRouteProps = RouteProps & { layout?: LayoutRouteProps };
@@ -51,6 +52,13 @@ export const PRIVATE_ROUTES: CustomRouteProps[] = [
     element: <HomePage />,
     layout: {
       title: '대시보드',
+    },
+  },
+  {
+    path: '/profile/nickname',
+    element: <ChangeNicknamePage />,
+    layout: {
+      title: '닉네임 변경',
     },
   },
 ];
