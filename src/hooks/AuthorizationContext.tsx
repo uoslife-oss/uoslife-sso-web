@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { PropsWithChildren, useCallback, useContext, useEffect } from 'react';
+import { ReactChannelIO } from 'react-channel-plugin';
 
 import { AuthAPI } from '@/api';
 import { useAuthenticationContext } from '@/hooks/AuthenticationContext';
 import { ProfileResponse } from '@/models';
+import commonConfig from '@/utils/configs/common.config';
 
 type AuthorizationContextProps = {
   isLoadingProfile: boolean;
@@ -39,7 +41,7 @@ export const AuthorizationContextProvider: React.FC<PropsWithChildren> =
         .catch(() => setIsLoadingProfile(false));
     }, [isAuthenticated]);
 
-    useEffect(() => initialize(), [isAuthenticating, isAuthenticated]);
+    useEffect(initialize, [isAuthenticating, isAuthenticated]);
 
     return (
       <AuthorizationContext.Provider
@@ -50,6 +52,24 @@ export const AuthorizationContextProvider: React.FC<PropsWithChildren> =
           setProfile,
         }}
       >
+        {profile ? (
+          <ReactChannelIO
+            pluginKey={commonConfig.CHANNEL_IO_PLUGIN_KEY}
+            profile={{
+              email: profile.email,
+              mobileNumber: profile.phoneNumber,
+              name: profile.name,
+            }}
+            memberId={profile.id}
+            autoBoot={true}
+          />
+        ) : (
+          <ReactChannelIO
+            pluginKey={commonConfig.CHANNEL_IO_PLUGIN_KEY}
+            autoBoot={true}
+          />
+        )}
+
         {children}
       </AuthorizationContext.Provider>
     );
