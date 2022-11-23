@@ -38,7 +38,7 @@ const ChangePasswordPage: React.FC = () => {
       }
 
       const { status, data } = await UserAPI.editProfile(profile.id, {
-        password: form.password,
+        newPassword: form.password,
       });
 
       if (status === 200) return toast.success('비밀번호가 변경되었습니다.');
